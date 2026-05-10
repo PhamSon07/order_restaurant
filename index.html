@@ -4,12 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhà hàng PTIT - Quản lý Order</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- PHẦN CSS (GIAO DIỆN) --- */
+        :root {
+            --primary: #E63946;
+            --secondary: #F1FAEE;
+            --bg: #FFFFFF;
+            --accent: #A8DADC;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #F06A6A 100%);
+            color: white; text-align: center; padding: 40px 20px;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.15);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .category-nav {
+            display: flex; justify-content: center; gap: 12px;
+            padding: 20px 15px; background: rgba(255, 255, 255, 0.95); position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(10px); box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .cat-btn {
+            padding: 10px 22px; border-radius: 25px; border: 2px solid #E8E8E8;
+            cursor: pointer; font-weight: 600; transition: all 0.3s;
+            background: white;
+        }
+
+        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .container {
+            display: flex; max-width: 1300px; margin: 30px auto; gap: 30px; padding: 0 20px;
+        }
+
+        .menu-section { flex: 1; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+
+        .menu-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid rgba(230, 57, 70, 0.1);
+            transition: 0.3s;
+        }
+
+        .menu-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(230, 57, 70, 0.15); }
+        .card-img { height: 160px; background-size: cover; background-position: center; background-color: #f0f0f0; }
+        .card-info { padding: 15px; text-align: center; }
+        .price { color: var(--primary); font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; }
+
+        .note-input {
+            width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd;
+            border-radius: 8px; font-size: 0.85em; resize: none;
+        }
+
+        /* Giỏ hàng */
+        .order-section {
+            width: 380px; background: white; padding: 25px; border-radius: 16px;
+            height: fit-content; position: sticky; top: 100px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #eee;
+        }
+
+        .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+        .qty-controls { display: flex; align-items: center; gap: 10px; }
+        .btn-qty { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--primary); background: white; color: var(--primary); cursor: pointer; font-weight: bold; }
+        .btn-qty:hover { background: var(--primary); color: white; }
+
+        .total-row { margin-top: 20px; display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; }
+        #checkout-btn {
+            width: 100%; padding: 15px; background: var(--primary); color: white;
+            border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 20px;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse { animation: pulse 0.4s ease-out; }
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .order-section { width: 100%; }
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>🍜 NHÀ HÀNG PTIT 🍜</h1>
+        <h1>NHÀ HÀNG PTIT</h1>
         <p>Học hết mình - Ăn nhiệt tình</p>
     </header>
 
@@ -26,24 +114,129 @@
         </main>
 
         <aside class="order-section">
-            <div class="order-header">
-                <h2>Đơn hàng</h2>
-                <span id="order-count">0 món</span>
+            <div class="order-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 style="color: var(--primary)">Đơn hàng</h2>
+                <span id="order-count" style="background: var(--secondary); color: var(--primary); padding: 4px 10px; border-radius: 15px; font-weight: bold;">0 món</span>
             </div>
             <div id="order-list">
-                <p class="empty-msg">Chưa có món nào được chọn.</p>
+                <p class="empty-msg" style="color: #999; text-align: center; font-style: italic;">Chưa có món nào được chọn.</p>
             </div>
-            
             <div class="order-summary">
                 <div class="total-row">
-                    <span>Tổng tiền:</span>
-                    <strong id="total-price">0 đ</strong>
+                    <span>Tổng cộng:</span>
+                    <strong id="total-price" style="color: var(--primary)">0 đ</strong>
                 </div>
                 <button id="checkout-btn" onclick="submitOrder()">CHỐT ĐƠN & THANH TOÁN</button>
             </div>
         </aside>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        /* --- PHẦN JAVASCRIPT (XỬ LÝ) --- */
+        const menuData = [
+            { id: 1, name: "Phở Bò PTIT", price: 45000, category: "mon-chinh", image: "https://i.postimg.cc/FzdBnhSK/pho-bo.jpg" },
+            { id: 2, name: "Cơm Gà Xối Mỡ", price: 40000, category: "mon-chinh", image: "https://i.postimg.cc/Rh6DbvtZ/com-ga-xoi-mo.jpg" },
+            { id: 3, name: "Bún Chả Hà Nội", price: 35000, category: "mon-chinh", image: "https://i.postimg.cc/NF9zPQXG/bun-cha.webp" },
+            { id: 4, name: "Mỳ Xào PTIT", price: 38000, category: "mon-chinh", image: "https://i.postimg.cc/BbLVwJFQ/mi-xao.jpg" },
+            { id: 5, name: "Cơm Tấm Sườn", price: 42000, category: "mon-chinh", image: "https://i.postimg.cc/j2wFkRfx/com-tam.jpg" },
+            { id: 6, name: "Bánh Mì PTIT", price: 28000, category: "mon-chinh", image: "https://i.postimg.cc/kG6ph7Sn/banh-mi.jpg" },
+            { id: 7, name: "Trà Sữa Full Topping", price: 30000, category: "nuoc-uong", image: "https://i.postimg.cc/2ybKXCWC/tra-sua.png" },
+            { id: 8, name: "Cà Phê Muối", price: 25000, category: "nuoc-uong", image: "https://i.postimg.cc/4y7SFXcZ/ca-phe-muoi.jpg" },
+            { id: 12, name: "Khoai Tây Lắc", price: 20000, category: "do-an-kem", image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400" }
+        ];
+
+        let cart = [];
+
+        function renderMenu(data = menuData) {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = data.map(item => `
+                <div class="menu-card">
+                    <div class="card-img" style="background-image: url('${item.image}')"></div>
+                    <div class="card-info">
+                        <h3>${item.name}</h3>
+                        <p class="price">${item.price.toLocaleString()} đ</p>
+                        <textarea placeholder="Ghi chú (VD: không hành...)" class="note-input" id="note-${item.id}" rows="2"></textarea>
+                        <button class="cat-btn" style="width:100%; border-color: var(--primary); color: var(--primary)" onclick="addToCart(${item.id}, this)">Thêm món</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id, btn) {
+            const item = menuData.find(i => i.id === id);
+            const note = document.getElementById(`note-${id}`).value;
+            const existing = cart.find(i => i.id === id);
+            
+            if (existing) {
+                existing.quantity++;
+                if(note) existing.note = note;
+            } else {
+                cart.push({ ...item, quantity: 1, note: note });
+            }
+            
+            btn.classList.add('pulse');
+            setTimeout(() => btn.classList.remove('pulse'), 400);
+            updateCartUI();
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('order-list');
+            const totalEl = document.getElementById('total-price');
+            const countEl = document.getElementById('order-count');
+            
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="empty-msg">Chưa có món nào được chọn.</p>';
+                totalEl.innerText = "0 đ";
+                countEl.innerText = "0 món";
+                return;
+            }
+
+            let total = 0; let count = 0;
+            list.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                count += item.quantity;
+                return `
+                    <div class="order-item">
+                        <div style="flex:1">
+                            <strong>${item.name}</strong><br>
+                            <small style="color: #666">${item.price.toLocaleString()}đ</small>
+                            ${item.note ? `<br><small style="color: var(--primary); font-style: italic">📝 ${item.note}</small>` : ''}
+                        </div>
+                        <div class="qty-controls">
+                            <button class="btn-qty" onclick="changeQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="btn-qty" onclick="changeQuantity(${item.id}, 1)">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerText = total.toLocaleString() + " đ";
+            countEl.innerText = count + " món";
+        }
+
+        function filterMenu(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filtered = cat === 'all' ? menuData : menuData.filter(i => i.category === cat);
+            renderMenu(filtered);
+        }
+
+        function submitOrder() {
+            if (cart.length === 0) return alert("Vui lòng chọn món!");
+            alert("🎉 PTIT RESTAURANT XÁC NHẬN!\nĐơn hàng của bạn đang được chuẩn bị.");
+            cart = []; updateCartUI();
+        }
+
+        window.onload = () => renderMenu();
+    </script>
 </body>
 </html>
