@@ -1,11 +1,11 @@
 // Dữ liệu mô phỏng (Hardcode tạm thời khi chưa có database)
 const menuData = [
-    { id: 1, name: "Phở Bò Kobe", price: 65000 },
-    { id: 2, name: "Cơm Tấm Sườn Bì", price: 45000 },
-    { id: 3, name: "Bún Chả Hà Nội", price: 50000 },
-    { id: 4, name: "Gà Rán Phần M", price: 75000 },
-    { id: 5, name: "Trà Đào Cam Sả", price: 35000 },
-    { id: 6, name: "Cà Phê Sữa Đá", price: 25000 }
+    { id: 1, name: "Phở Bò Kobe", price: 65000, image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400" },
+    { id: 2, name: "Cơm Tấm Sườn Bì", price: 45000, image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" },
+    { id: 3, name: "Bún Chả Hà Nội", price: 50000, image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400" },
+    { id: 4, name: "Gà Rán Phần M", price: 75000, image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400" },
+    { id: 5, name: "Trà Đào Cam Sả", price: 35000, image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
+    { id: 6, name: "Cà Phê Sữa Đá", price: 25000, image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400" }
 ];
 
 // Giỏ hàng hiện tại
@@ -23,11 +23,14 @@ function renderMenu() {
 
     menuData.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'menu-item';
+        div.className = 'menu-card'; // Đổi class để dùng CSS mới
         div.innerHTML = `
-            <h3>${item.name}</h3>
-            <p class="price">${formatVND(item.price)}</p>
-            <button onclick="addToOrder(${item.id})">Thêm vào đơn</button>
+            <div class="card-img" style="background-image: url('${item.image}')"></div>
+            <div class="card-info">
+                <h3>${item.name}</h3>
+                <p class="price">${formatVND(item.price)}</p>
+                <button class="add-btn" onclick="addToOrder(${item.id})">Thêm món</button>
+            </div>
         `;
         container.appendChild(div);
     });
