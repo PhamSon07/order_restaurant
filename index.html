@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Order Nhà Hàng</title>
+    <title>Menu Nhà Hàng Hiện Đại</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Hệ Thống Quản Lý Đơn Gọi Món</h1>
+        <h1>Smart Restaurant</h1>
+        <p>Giao hàng nhanh - Ăn cực ngon</p>
     </header>
 
+    <nav class="category-nav">
+        <button class="cat-btn active" onclick="filterMenu('all')">Tất cả</button>
+        <button class="cat-btn" onclick="filterMenu('mon-chinh')">Món chính</button>
+        <button class="cat-btn" onclick="filterMenu('nuoc-uong')">Nước uống</button>
+        <button class="cat-btn" onclick="filterMenu('do-an-kem')">Đồ ăn kèm</button>
+    </nav>
+
     <div class="container">
-        <!-- Cột Thực đơn -->
         <main class="menu-section">
-            <h2>Thực Đơn</h2>
             <div id="menu-container" class="grid-layout">
-                <!-- Danh sách món ăn sẽ được JavaScript render tại đây -->
-            </div>
+                </div>
         </main>
 
-        <!-- Cột Quản lý Đơn hàng -->
         <aside class="order-section">
-            <h2>Đơn Hàng Hiện Tại</h2>
+            <div class="order-header">
+                <h2>Giỏ hàng của bạn</h2>
+                <span id="order-count">0 món</span>
+            </div>
             <div id="order-list">
-                <p class="empty-msg">Chưa có món nào được chọn.</p>
-                <!-- Các món đang chọn sẽ hiện ở đây -->
+                <p class="empty-msg">Giỏ hàng đang trống.</p>
             </div>
             
             <div class="order-summary">
@@ -33,7 +40,7 @@
                     <span>Tổng cộng:</span>
                     <strong id="total-price">0 đ</strong>
                 </div>
-                <button id="checkout-btn" onclick="submitOrder()">Chốt Đơn</button>
+                <button id="checkout-btn" onclick="submitOrder()">THANH TOÁN NGAY</button>
             </div>
         </aside>
     </div>
