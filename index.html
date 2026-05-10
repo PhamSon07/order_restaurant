@@ -3,94 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Restaurant - Menu</title>
-    <style>
-        /* PHẦN CSS GỘP VÀO ĐÂY */
-        :root { --primary: #ff4757; --bg: #f8f9fa; }
-        body { background: var(--bg); font-family: sans-serif; margin: 0; }
-        header { background: #ff4757; color: white; text-align: center; padding: 20px; }
-        .category-nav { display: flex; justify-content: center; gap: 10px; padding: 15px; background: white; }
-        .cat-btn { padding: 8px 15px; border-radius: 20px; border: 1px solid #ddd; cursor: pointer; }
-        .cat-btn.active { background: #ff4757; color: white; border: none; }
-        .container { display: flex; max-width: 1100px; margin: 20px auto; gap: 20px; padding: 0 15px; }
-        .menu-section { flex: 2; }
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .menu-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
-        .card-img { height: 130px; background-size: cover; background-position: center; }
-        .order-section { flex: 1; background: white; padding: 20px; border-radius: 10px; height: fit-content; position: sticky; top: 10px; }
-        #checkout-btn { width: 100%; padding: 10px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
-        @media (max-width: 768px) { .container { flex-direction: column; } }
-    </style>
+    <title>Nhà hàng PTIT - Quản lý Order</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <header><h1>Smart Restaurant</h1></header>
+    <header>
+        <h1>NHÀ HÀNG PTIT</h1>
+        <p>Học hết mình - Ăn nhiệt tình</p>
+    </header>
 
     <nav class="category-nav">
         <button class="cat-btn active" onclick="filterMenu('all')">Tất cả</button>
         <button class="cat-btn" onclick="filterMenu('mon-chinh')">Món chính</button>
         <button class="cat-btn" onclick="filterMenu('nuoc-uong')">Nước uống</button>
+        <button class="cat-btn" onclick="filterMenu('do-an-kem')">Đồ ăn kèm</button>
     </nav>
 
     <div class="container">
         <main class="menu-section">
             <div id="menu-container" class="grid-layout"></div>
         </main>
+
         <aside class="order-section">
-            <h3>Giỏ hàng</h3>
-            <div id="order-list"></div>
-            <hr>
-            <p>Tổng cộng: <strong id="total-price">0 đ</strong></p>
-            <button id="checkout-btn" onclick="submitOrder()">Thanh toán</button>
+            <div class="order-header">
+                <h2>Đơn hàng</h2>
+                <span id="order-count">0 món</span>
+            </div>
+            <div id="order-list">
+                <p class="empty-msg">Chưa có món nào được chọn.</p>
+            </div>
+            
+            <div class="order-summary">
+                <div class="total-row">
+                    <span>Tổng tiền:</span>
+                    <strong id="total-price">0 đ</strong>
+                </div>
+                <button id="checkout-btn" onclick="submitOrder()">CHỐT ĐƠN & THANH TOÁN</button>
+            </div>
         </aside>
     </div>
 
-    <script>
-        /* PHẦN JAVASCRIPT GỘP VÀO ĐÂY */
-        const menuData = [
-            { id: 1, name: "Phở Bò", price: 50000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400" },
-            { id: 2, name: "Cơm Tấm", price: 40000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" },
-            { id: 3, name: "Trà Đào", price: 30000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400" },
-            { id: 4, name: "Cà Phê", price: 20000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400" }
-        ];
-
-        let cart = [];
-
-        function renderMenu(data = menuData) {
-            const container = document.getElementById('menu-container');
-            container.innerHTML = data.map(item => `
-                <div class="menu-card">
-                    <div class="card-img" style="background-image: url('${item.image}')"></div>
-                    <div style="padding:10px">
-                        <h4>${item.name}</h4>
-                        <p style="color:red">${item.price.toLocaleString()}đ</p>
-                        <button onclick="add(${item.id})">Thêm</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterMenu(cat) {
-            const filtered = cat === 'all' ? menuData : menuData.filter(i => i.category === cat);
-            renderMenu(filtered);
-        }
-
-        function add(id) {
-            const item = menuData.find(i => i.id === id);
-            cart.push(item);
-            updateCart();
-        }
-
-        function updateCart() {
-            const list = document.getElementById('order-list');
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            list.innerHTML = cart.map(i => `<div>${i.name} - ${i.price.toLocaleString()}đ</div>`).join('');
-            document.getElementById('total-price').innerText = total.toLocaleString() + ' đ';
-        }
-
-        function submitOrder() { alert("Đã nhận đơn!"); cart = []; updateCart(); }
-
-        window.onload = () => renderMenu();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
