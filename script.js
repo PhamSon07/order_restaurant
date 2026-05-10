@@ -1,19 +1,19 @@
 const menuData = [
-    { id: 1, name: "Phở Bò PTIT", price: 45000, category: "mon-chinh", image: "https://i.ytimg.com/vi/c9GfHgMk1ac/maxresdefault.jpg" },
-    { id: 2, name: "Cơm Gà Xối Mỡ", price: 40000, category: "mon-chinh", image: "https://barona.vn/storage/meo-vat/83/com-ga-xoi-mo.jpg" },
-    { id: 3, name: "Bún Chả", price: 35000, category: "mon-chinh", image: "https://tse2.mm.bing.net/th/id/OIP.7CPU7nS8rZ00up6qWW96ggHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" },
-    { id: 4, name: "Mỳ Xào PTIT", price: 38000, category: "mon-chinh", image: "https://andemkom9.com/wp-content/uploads/2023/07/hinh-anh-mon-mi-xao-bo-rau-cai.jpg" },
-    { id: 5, name: "Cơm Tấm Sườn", price: 42000, category: "mon-chinh", image: "https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/01_2020/note-lien-tay-nhung-quan-com-tam-sai-gon-ngon8.jpg" },
-    { id: 6, name: "Bánh Mì PTIT", price: 28000, category: "mon-chinh", image: "https://static-images.vnncdn.net/files/publish/2023/5/12/clever-junior-830-580.jpg" },
-    { id: 7, name: "Trà Sữa Full Topping", price: 30000, category: "nuoc-uong", image: "https://png.pngtree.com/background/20230412/original/pngtree-yellow-milk-tea-cup-picture-image_2400831.jpg" },
-    { id: 8, name: "Cà Phê Muối", price: 25000, category: "nuoc-uong", image: "https://thuytinhocean.com/wp-content/uploads/2024/08/hinh-anh-ly-ca-phe-muoi-24-1024x1024.jpg" },
-    { id: 9, name: "Sinh Tố Dâu", price: 32000, category: "nuoc-uong", image: "https://banhmihanoi.net/wp-content/uploads/2023/03/sinh-to-dau-tay.png" },
-    { id: 10, name: "Trà chanh", price: 15000, category: "nuoc-uong", image: "https://bloganchoi.com/wp-content/uploads/2022/08/tra-chanh-thai-xanh.jpg" },
-    { id: 11, name: "Cơm Nắm Thịt Nướng", price: 22000, category: "nuoc-uong", image: "https://cdn.tgdd.vn/2020/07/CookRecipe/Avatar/com-nam-rau-cu-thumbnail-1.jpg" },
+    { id: 1, name: "Phở Bò PTIT", price: 45000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1591080876650-e7d3f982c1f8?w=500&h=400&fit=crop" },
+    { id: 2, name: "Cơm Gà Xối Mỡ", price: 40000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1603894542802-07218d2c3b5c?w=500&h=400&fit=crop" },
+    { id: 3, name: "Bún Chả", price: 35000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1612874742237-415c69f0f580?w=500&h=400&fit=crop" },
+    { id: 4, name: "Mỳ Xào PTIT", price: 38000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=500&h=400&fit=crop" },
+    { id: 5, name: "Cơm Tấm Sườn", price: 42000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1596899261221-c1a32f70b5d0?w=500&h=400&fit=crop" },
+    { id: 6, name: "Bánh Mì PTIT", price: 28000, category: "mon-chinh", image: "https://images.unsplash.com/photo-1586190251993-d3ecbf545247?w=500&h=400&fit=crop" },
+    { id: 7, name: "Trà Sữa Full Topping", price: 30000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&h=400&fit=crop" },
+    { id: 8, name: "Cà Phê Muối", price: 25000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1559056199-641a0ac8b3f4?w=500&h=400&fit=crop" },
+    { id: 9, name: "Sinh Tố Dâu", price: 32000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1553530666-ba2a7512e8b1?w=500&h=400&fit=crop" },
+    { id: 10, name: "Trà Chanh", price: 15000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500&h=400&fit=crop" },
+    { id: 11, name: "Cơm Nắm Thịt Nướng", price: 22000, category: "nuoc-uong", image: "https://images.unsplash.com/photo-1609501676725-7186f017a4b2?w=500&h=400&fit=crop" },
     { id: 12, name: "Khoai Tây Lắc", price: 20000, category: "do-an-kem", image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&h=400&fit=crop" },
-    { id: 13, name: "Gà Rán PTIT", price: 35000, category: "do-an-kem", image: "https://img5.thuthuatphanmem.vn/uploads/2021/12/14/hinh-anh-ga-ran-sieu-dep_024421256.jpg" },
-    { id: 14, name: "Trứng Cút Chiên", price: 15000, category: "do-an-kem", image: "https://cdn.tgdd.vn/Files/2021/08/12/1374712/cach-lam-mon-trung-cut-chien-xu-beo-ngon-cuc-don-gian-202108121321322862.jpg" },
-    { id: 15, name: "Khoai lang kén", price: 25000, category: "do-an-kem", image: "https://cookbeo.com/media/2020/08/khoai-lang-ken/dia-khoai-lang-ken.jpg" }
+    { id: 13, name: "Gà Rán PTIT", price: 35000, category: "do-an-kem", image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc46e?w=500&h=400&fit=crop" },
+    { id: 14, name: "Trứng Cút Chiên", price: 15000, category: "do-an-kem", image: "https://images.unsplash.com/photo-1585238341710-4b5e97cff775?w=500&h=400&fit=crop" },
+    { id: 15, name: "Khoai Lang Kén", price: 25000, category: "do-an-kem", image: "https://images.unsplash.com/photo-1599599810694-a5f897917ee8?w=500&h=400&fit=crop" }
 ];
 
 let cart = [];
@@ -68,7 +68,7 @@ function renderMenu(data = menuData) {
             <div class="card-info">
                 <h3>${item.name}</h3>
                 <p class="price">${item.price.toLocaleString()} đ</p>
-                <textarea placeholder="Ghi chú" class="note-input" id="note-${item.id}" rows="2" maxlength="50"></textarea>
+                <textarea placeholder="Ghi chú (vd: không cay)" class="note-input" id="note-${item.id}" rows="2" maxlength="50"></textarea>
                 <button class="cat-btn" style="width:100%" onclick="addToCart(${item.id}, this)">Thêm món</button>
             </div>
         </div>
