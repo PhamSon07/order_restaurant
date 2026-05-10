@@ -1,119 +1,134 @@
 :root {
-    --primary-color: #ff4757;
-    --secondary-color: #2f3542;
-    --bg-color: #f1f2f6;
+    --primary: #ff4757;
+    --secondary: #2f3542;
+    --bg: #f8f9fa;
+    --white: #ffffff;
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg);
     margin: 0;
     font-family: 'Inter', sans-serif;
+    color: var(--secondary);
 }
 
 header {
     background: linear-gradient(135deg, #ff4757, #ff6b81);
     color: white;
-    padding: 2rem;
+    padding: 40px 20px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
 }
 
+/* Thanh phân loại ngang */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background: var(--white);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.cat-btn {
+    background: #eee;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.cat-btn.active, .cat-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* Container cân đối */
 .container {
     display: flex;
+    justify-content: center; /* Căn giữa nội dung bên trong */
     max-width: 1200px;
-    margin: 30px auto;
-    gap: 30px;
+    margin: 30px auto; /* Căn giữa container ra giữa trang */
+    gap: 25px;
     padding: 0 20px;
 }
 
-/* Thẻ món ăn hiện đại */
+.menu-section {
+    flex: 1; /* Tự động co giãn */
+}
+
 .grid-layout {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
 }
 
+/* Card món ăn */
 .menu-card {
-    background: white;
+    background: var(--white);
     border-radius: 15px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
 }
 
-.menu-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
+.menu-card:hover { transform: translateY(-5px); }
 
 .card-img {
-    height: 150px;
+    height: 160px;
     background-size: cover;
     background-position: center;
 }
 
-.card-info {
-    padding: 15px;
-    text-align: center;
-}
+.card-info { padding: 15px; text-align: center; }
+.card-info h3 { margin: 10px 0; font-size: 1.1rem; }
+.price { color: var(--primary); font-weight: bold; font-size: 1.2rem; }
 
-.card-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: var(--secondary-color);
-}
-
-.card-info .price {
-    color: var(--primary-color);
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.add-btn {
-    width: 100%;
-    background: var(--bg-color);
-    color: var(--secondary-color);
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    transition: 0.2s;
-}
-
-.add-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Khu vực Order */
+/* Cột Order */
 .order-section {
-    background: white;
+    width: 350px; /* Độ rộng cố định cho giỏ hàng */
+    background: var(--white);
     border-radius: 15px;
     padding: 20px;
-    min-width: 350px;
     height: fit-content;
     position: sticky;
-    top: 20px;
+    top: 80px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .order-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
 }
 
 #checkout-btn {
-    background: var(--primary-color);
     width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
     padding: 15px;
     border-radius: 10px;
-    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
     margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .order-section { min-width: 100%; }
+/* Mobile responsive */
+@media (max-width: 900px) {
+    .container { flex-direction: column; align-items: center; }
+    .order-section { width: 100%; position: static; }
 }
